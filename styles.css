@@ -84,6 +84,22 @@ p {
     height: auto;
 }
 
+<<<<<<< Updated upstream
 .krager img{
     width: 200px;
 }
+=======
+
+
+.video img {
+    
+    margin-bottom: 200px;
+} 
+
+.pest p {
+    margin-bottom:  200px;
+}
+
+.starthelsingor p { margin-bottom: 100px;   
+}
+>>>>>>> Stashed changes
