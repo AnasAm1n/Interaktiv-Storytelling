@@ -23,7 +23,7 @@ body {
 
 .felix img  {
     position: fixed;
-    width: 500px;
+    width: 350px;
     padding-top: 20px;
     right: calc((100% - 1440px) / 2 + 20px);
 }
@@ -163,7 +163,7 @@ p {
     text-align: center;
     margin-top: 0;
     margin-bottom: 20px;
-    margin-right: 0;
+    margin-right: 300px;
     padding-left: 18%;
     text-align: left;
 }
