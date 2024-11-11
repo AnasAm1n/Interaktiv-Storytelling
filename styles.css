@@ -48,8 +48,15 @@ img {
     width: 80%;
     height: auto;
     margin: 20px 0;
-    border-radius: 8px;
+    display: flex;
+    padding-left: 100px;
 }
+
+.starthelsingor img {
+    height: auto;
+    margin: 20px 0;
+}
+
 
 p {
     font-size: 26px;
