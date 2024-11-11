@@ -9,15 +9,18 @@ const felix = document.querySelector('.felix img');
 const patients = [
     {
         image: 'images/patient1.png',
-        correctSequence: ['scissors']
+        correctSequence: ['scissors'],
+        speech: 'Jeg har brug for at få renset mine sår!'
     },
     {
         image: 'images/patient2.png',
-        correctSequence: ['book']
+        correctSequence: ['book'],
+        speech: 'Jeg har høj feber og udslæt!'
     },
     {
         image: 'images/patient3.png',
-        correctSequence: ['medicine']
+        correctSequence: ['medicine'],
+        speech: 'Mine bylder gør ondt!'
     }
 ];
 
@@ -57,7 +60,6 @@ window.addEventListener('scroll', handleScroll);
 document.querySelector('.start-button').addEventListener('click', function() {
     const initialState = document.querySelector('.game-initial');
     const dialogState = document.querySelector('.game-dialog');
-    const patient = document.querySelector('.dialog-character-right');
     
     // Fade out initial state
     initialState.style.opacity = '0';
@@ -70,34 +72,32 @@ document.querySelector('.start-button').addEventListener('click', function() {
         // Trigger fade in
         setTimeout(() => {
             dialogState.style.opacity = '1';
-            patient.style.opacity = '1';
-            patient.style.transform = 'translateX(0)';
+            showNextPatient(); // Call to show the first patient
         }, 50);
     }, 500);
 });
 
 function showNextPatient() {
     const patientImage = document.querySelector('.dialog-character-right');
+    const speechBubble = document.querySelector('.patient-speech-bubble');
     
-    // Hide current patient
+    // Hide current patient and speech bubble
     patientImage.style.opacity = '0';
     patientImage.style.transform = 'translateX(50px)';
-    
+    if (speechBubble) speechBubble.style.opacity = '0'; // Hide the speech bubble
+
     setTimeout(() => {
         // Update patient image
         patientImage.src = patients[currentPatient].image;
-        
-        // Reset icons
-        document.querySelectorAll('.game-icon').forEach(icon => {
-            icon.classList.remove('clicked');
-            icon.style.opacity = '1';
-            icon.style.pointerEvents = 'auto';
-        });
-        
-        // Show new patient
+
+        // Update speech bubble text
+        speechBubble.textContent = patients[currentPatient].speech; // Set the speech text
+
+        // Show new patient and speech bubble
         setTimeout(() => {
             patientImage.style.opacity = '1';
             patientImage.style.transform = 'translateX(0)';
+            speechBubble.style.opacity = '1'; // Show the speech bubble
         }, 50);
     }, 500);
 }
@@ -116,14 +116,15 @@ function handleIconClick(icon) {
         sound.play().catch(error => console.log("Audio playback failed:", error));
     }
     
-    // Add clicked effect
+    // Fade out the clicked icon
+    icon.style.opacity = '0';
     iconContainer.classList.add('clicked');
     
     // Check if it's the correct choice for current patient
     const isCorrect = (iconType === patients[currentPatient].correctSequence[0]);
     results.push(isCorrect);
     
-    // Move to next patient
+    // Move to next patient after a delay
     currentPatient++;
     
     // If we've treated all patients, show final screen
@@ -145,6 +146,9 @@ function handleIconClick(icon) {
                     <div class="final-content">
                         <img src="images/plaguedoctor.jpg" class="plague-doctor-final" alt="Plague Doctor">
                         <h2 class="final-text">${survivors}/3 Overlevede</h2>
+                        <button class="retry-button">
+                            <img src="images/House.png" alt="Retry" class="retry-icon"> Prøv igen
+                        </button>
                     </div>
                     <div class="results-bar">
                         ${resultBoxes}
@@ -153,10 +157,32 @@ function handleIconClick(icon) {
             `;
             
             gameDialog.style.opacity = '1';
+
+            // Add this after gameDialog.style.opacity = '1';
+            document.querySelector('.retry-button').addEventListener('click', function() {
+                // Reset game state logic here
+                currentPatient = 0; // Reset current patient to the first patient
+                results = []; // Clear results
+            
+                // Hide the final screen and show the initial state again
+                const gameDialog = document.querySelector('.game-dialog');
+                gameDialog.style.opacity = '0';
+                setTimeout(() => {
+                    gameDialog.style.display = 'none'; // Hide final screen
+                    document.querySelector('.game-initial').style.display = 'block'; // Show initial state
+            
+                    // Reset the initial state UI if needed
+                    const initialState = document.querySelector('.game-initial');
+                    initialState.style.opacity = '1'; // Ensure it's visible
+            
+                    // Call the function to show the first patient
+                    showNextPatient(); // Show the first patient
+                }, 500);
+            });
         }, 1000);
     } else {
-        // Show next patient
-        setTimeout(showNextPatient, 1000);
+        // Show next patient after icon fade animation
+        setTimeout(showNextPatient, 500);
     }
 }
 
