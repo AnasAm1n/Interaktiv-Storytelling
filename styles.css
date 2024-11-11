@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FF3B30; /* baggrundfarve */
+    color: #000; /* Sort tekst */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.felix img {
+    position: fixed;
+    width: 600px;
+}
+
+
+h2 {
+    font-size: 126px;
+    color: #2E2E2E; /* h2 farve */
+    margin: 0;
+    text-align: left;
+    padding-left: 10%;
+    margin-top: 20px;
+}
+
+h3 {
+    font-size: 63px;
+    color: #2E2E2E; /* h2 farve */
+    margin-top: 0;
+    text-align: left;
+    padding-left: 13%;
+}
+
+/* billede størrelser */
+img {
+    width: 80%;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+p {
+    font-size: 32px;
+    color: #2E2E2E; /* h2 farve */
+    margin-top: 0;
+    text-align: left;
+    padding-left: 13%;
+    line-height: 2.5;
+}
+
+.video video {
+    width: 90%; 
+    max-width: 1000px; 
+    height: auto;
+}
+
+.video2 video {
+    width: 90%; 
+    max-width: 1000px; 
+    height: auto;
+}
+
