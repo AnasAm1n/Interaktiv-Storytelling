@@ -12,10 +12,6 @@ body {
     padding: 0;
 }
 
-.kopenhagen h2 {
-    padding-top: 500px;
-}
-
 .felix {
     display: flex;
     justify-content: flex-end;
@@ -94,7 +90,6 @@ p {
 }
 
 
-
 .video img {
     
     margin-bottom: 200px;
@@ -106,6 +101,5 @@ p {
 
 .starthelsingor p { 
     margin-bottom: 100px;   
-    position: absolute;
 }
 
