@@ -23,8 +23,8 @@ function handleScroll() {
     if (scrollPosition >= ksektion) {
         kr1.style.transform = "translateX(" + (scrollPosition - ksektion) * 3.0 + "px)";
         kr2.style.transform = "translateX(" + (scrollPosition - ksektion) * 1.8 + "px)";
-        kr3.style.transform = "translateX(" + (-(scrollPosition - ksektion) * 2.8) + "px)";
-        kr4.style.transform = "translateX(" + (-(scrollPosition - ksektion) * 1.7) + "px)";
+        kr3.style.transform = "translateX(" + (-(scrollPosition - ksektion) * 1.8) + "px)";
+        kr4.style.transform = "translateX(" + (-(scrollPosition - ksektion) * 2.8) + "px)";
     }
 
     if (scrollPosition >= manualSection) {
