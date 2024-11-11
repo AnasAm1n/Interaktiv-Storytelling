@@ -5,10 +5,26 @@ const kr3 = document.getElementById("kr3");
 const kr4 = document.getElementById("kr4");
 const felix = document.querySelector('.felix img');
 
-// Add state variable to track current patient
-let currentPatient = 1;
+// Define patients and their correct sequences
+const patients = [
+    {
+        image: 'images/patient1.png',
+        correctSequence: ['scissors']
+    },
+    {
+        image: 'images/patient2.png',
+        correctSequence: ['book']
+    },
+    {
+        image: 'images/patient3.png',
+        correctSequence: ['medicine']
+    }
+];
 
-// Add sound functions at the top of your file
+let currentPatient = 0;
+let currentStep = 0;
+let results = [];
+
 function playSound(soundId) {
     const sound = document.getElementById(soundId);
     sound.currentTime = 0; // Reset sound to start
@@ -60,42 +76,88 @@ document.querySelector('.start-button').addEventListener('click', function() {
     }, 500);
 });
 
-// Function to handle icon clicks
-function handleIconClick(icon) {
-    // Prevent clicking if icon is already clicked
-    if (icon.style.opacity === '0') return;
+function showNextPatient() {
+    const patientImage = document.querySelector('.dialog-character-right');
     
-    const patient = document.querySelector('.dialog-character-right');
-    const iconContainer = icon.parentElement;
-    
-    // Play sound based on icon type
-    const iconType = icon.getAttribute('alt');
-    const soundId = `${iconType}-sound`;
-    const sound = document.getElementById(soundId);
-    
-    if (sound) {
-        sound.currentTime = 0; // Reset sfx til start
-        sound.play().catch(error => {
-            console.log("Audio playback failed:", error);
-        });
-    }
-    
-    // Add click animation class to container
-    iconContainer.classList.add('clicked');
-    
-    // Fade out ikon 
-    icon.style.opacity = '0';
-    
-    // Fade out nuværende patient
-    patient.style.transition = 'opacity 0.5s ease-in-out';
-    patient.style.opacity = '0';
+    // Hide current patient
+    patientImage.style.opacity = '0';
+    patientImage.style.transform = 'translateX(50px)';
     
     setTimeout(() => {
-        //Skifter til næste patient
-        currentPatient++;
-        patient.src = `images/patient${currentPatient}.png`;
-        patient.style.opacity = '1';
+        // Update patient image
+        patientImage.src = patients[currentPatient].image;
+        
+        // Reset icons
+        document.querySelectorAll('.game-icon').forEach(icon => {
+            icon.classList.remove('clicked');
+            icon.style.opacity = '1';
+            icon.style.pointerEvents = 'auto';
+        });
+        
+        // Show new patient
+        setTimeout(() => {
+            patientImage.style.opacity = '1';
+            patientImage.style.transform = 'translateX(0)';
+        }, 50);
     }, 500);
+}
+
+function handleIconClick(icon) {
+    if (icon.style.opacity === '0') return;
+    
+    const iconType = icon.getAttribute('alt');
+    const iconContainer = icon.parentElement;
+    
+    // Play sound
+    const soundId = `${iconType}-sound`;
+    const sound = document.getElementById(soundId);
+    if (sound) {
+        sound.currentTime = 0;
+        sound.play().catch(error => console.log("Audio playback failed:", error));
+    }
+    
+    // Add clicked effect
+    iconContainer.classList.add('clicked');
+    
+    // Check if it's the correct choice for current patient
+    const isCorrect = (iconType === patients[currentPatient].correctSequence[0]);
+    results.push(isCorrect);
+    
+    // Move to next patient
+    currentPatient++;
+    
+    // If we've treated all patients, show final screen
+    if (currentPatient === patients.length) {
+        setTimeout(() => {
+            const gameDialog = document.querySelector('.game-dialog');
+            
+            // Calculate survivors
+            const survivors = results.filter(result => result).length;
+            
+            // Create result boxes based on actual results
+            const resultBoxes = results.map(result => 
+                `<div class="result-box ${result ? 'checkmark' : 'skull'}"></div>`
+            ).join('');
+            
+            // Create the final screen HTML
+            gameDialog.innerHTML = `
+                <div class="final-screen">
+                    <div class="final-content">
+                        <img src="images/plaguedoctor.jpg" class="plague-doctor-final" alt="Plague Doctor">
+                        <h2 class="final-text">${survivors}/3 Overlevede</h2>
+                    </div>
+                    <div class="results-bar">
+                        ${resultBoxes}
+                    </div>
+                </div>
+            `;
+            
+            gameDialog.style.opacity = '1';
+        }, 1000);
+    } else {
+        // Show next patient
+        setTimeout(showNextPatient, 1000);
+    }
 }
 
 // click listeners ttil alle ikoner
