@@ -12,6 +12,10 @@ body {
     padding: 0;
 }
 
+.kopenhagen {
+    padding-top: 500px;
+}
+
 .felix {
     display: flex;
     justify-content: flex-end;
@@ -87,6 +91,7 @@ p {
 <<<<<<< Updated upstream
 .krager img{
     width: 200px;
+<<<<<<< Updated upstream
 }
 =======
 
@@ -101,5 +106,9 @@ p {
 }
 
 .starthelsingor p { margin-bottom: 100px;   
+}
+>>>>>>> Stashed changes
+=======
+    position: absolute;
 }
 >>>>>>> Stashed changes
