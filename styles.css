@@ -32,6 +32,11 @@ h2 {
     text-align: left;
     padding-left: 10%;
     margin-top: 20px;
+    padding-top: 40px;
+}
+
+.starthelsingor h2{
+    padding-top: 0px;
 }
 
 h3 {
