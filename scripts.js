@@ -1,3 +1,4 @@
+// henter alle elementerne //
 const kr1 = document.getElementById("kr1");
 const kr2 = document.getElementById("kr2");
 const kr3 = document.getElementById("kr3");
@@ -20,10 +21,10 @@ function handleScroll() {
     const manualSection = document.querySelector('.manueal').offsetTop;
 
     if (scrollPosition >= ksektion) {
-        kr1.style.transform = `translateX(${scrollPosition - ksektion}px)`;
-        kr2.style.transform = `translateX(${(scrollPosition - ksektion) * 1.2}px)`;
-        kr3.style.transform = `translateX(${-(scrollPosition - ksektion) * 0.8}px)`;
-        kr4.style.transform = `translateX(${-(scrollPosition - ksektion) * 1.5}px)`;
+        kr1.style.transform = "translateX(" + (scrollPosition - ksektion) * 3.0 + "px)";
+        kr2.style.transform = "translateX(" + (scrollPosition - ksektion) * 1.8 + "px)";
+        kr3.style.transform = "translateX(" + (-(scrollPosition - ksektion) * 2.8) + "px)";
+        kr4.style.transform = "translateX(" + (-(scrollPosition - ksektion) * 1.7) + "px)";
     }
 
     if (scrollPosition >= manualSection) {

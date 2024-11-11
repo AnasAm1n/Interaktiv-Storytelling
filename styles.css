@@ -23,7 +23,7 @@ body {
 
 .felix img  {
     position: fixed;
-    width: 300px;
+    width: 500px;
     padding-top: 20px;
     right: calc((100% - 1440px) / 2 + 20px);
 }
@@ -55,7 +55,7 @@ h3 {
 
 /* billede størrelser */
 img {
-    width: 60%;
+    max-width: 80%;
     height: auto;
     margin: 15px 0;
     display: flex;
@@ -63,7 +63,7 @@ img {
 }
 
 .starthelsingor img {
-    height: auto;
+   max-width: 1200px;
     margin: 20px 0;
 }
 
@@ -108,9 +108,8 @@ p {
 }
 
 #kr1 {
-
-    left: 0;
     bottom: 5px;
+    left: -400px;
 
 }
 
@@ -121,8 +120,9 @@ p {
 }
 
 #kr4 {
-    right: 0; /* Placerer kr4 i højre side */
+    right: 00; /* Placerer kr4 i højre side */
     bottom: 30px;
+    width: 600px;
 }
 
 .video img {
@@ -247,7 +247,7 @@ p {
     overflow: hidden;
     display: flex;
     justify-content: center;
-    align-items: center;d
+    align-items: center;
 }
 
 .dialog-character-left {
