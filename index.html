@@ -6,6 +6,7 @@
     <script src="scripts.js" defer></script>
     <link rel="stylesheet" href="styles.css">
     <link rel="preload" href="fonts/BLKCHCRY.TTF" as="font" type="font/ttf" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arima:wght@400;500;600&display=swap" rel="stylesheet">
     <title>Epidemien</title>
 </head>
 <body>
@@ -80,6 +81,54 @@
             <img src="images/infografik.png" alt="Billede af infografik">
         </article>
     </section>
+
+    <!-- New Game Section -->
+    <section class="game-section">
+        <div class="game-container">
+            <!-- Initial state -->
+            <div class="game-initial">
+                <div class="speech-bubble">Luk mig ind!</div>
+                <button class="start-button">Start</button>
+                <img src="images/felix-spil.PNG" alt="character" class="character">
+                <img src="images/baggrund-spil.png" alt="room background" class="room-background">
+            </div>
+            
+            <!-- Game state (initially hidden) -->
+            <div class="game-dialog" style="display: none;">
+                <div class="dialog-background">
+                    <!-- Dark room scene -->
+                    <img src="images/baggrund-spil.png" alt="Dark room background" class="dialog-scene">
+                    <!-- Characters -->
+                    <img src="images/felix-spil.PNG" alt="Felix" class="dialog-character-left">
+                    <img src="images/patient1.png" alt="Doctor" class="dialog-character-right">
+                </div>
+                <div class="icon-container">
+                    <div class="game-icon">
+                        <img src="images/alcohol-ikon.png" alt="medicine" class="icon-image">
+                    </div>
+                    <div class="game-icon">
+                        <img src="images/book-ikon.png" alt="book" class="icon-image">
+                    </div>
+                    <div class="game-icon">
+                        <img src="images/cross-ikon.png" alt="cross" class="icon-image">
+                    </div>
+                    <div class="game-icon">
+                        <img src="images/saks-ikon.png" alt="scissors" class="icon-image">
+                    </div>
+                    <div class="game-icon">
+                        <img src="images/pille-ikon.png" alt="bottle" class="icon-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Update the audio elements section -->
+    <audio id="medicine-sound" src="sounds/alcohol-sfx.mp3" preload="auto"></audio>
+    <audio id="book-sound" src="sounds/book-sfx.mp3" preload="auto"></audio>
+    <audio id="cross-sound" src="sounds/church-sfx.mp3" preload="auto"></audio>
+    <audio id="scissors-sound" src="sounds/saks-sfx.mp3" preload="auto"></audio>
+    <audio id="bottle-sound" src="sounds/pills-sfx.mp3" preload="auto"></audio>
 
 </body>
 </html>
