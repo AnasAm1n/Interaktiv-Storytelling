@@ -1,4 +1,4 @@
-// henter alle elementerne //
+// henter alle elementerne
 const kr1 = document.getElementById("kr1");
 const kr2 = document.getElementById("kr2");
 const kr3 = document.getElementById("kr3");
@@ -10,17 +10,17 @@ const patients = [
     {
         image: 'images/patient1.png',
         correctSequence: ['scissors'],
-        speech: 'Jeg har brug for at få renset mine sår!'
+        speech: 'Mine bylder er fyldt med væske, de skal fjernes!'
     },
     {
         image: 'images/patient2.png',
         correctSequence: ['book'],
-        speech: 'Jeg har høj feber og udslæt!'
+        speech: 'Hvad kan jeg gøre for at lindre smerten?'
     },
     {
         image: 'images/patient3.png',
         correctSequence: ['medicine'],
-        speech: 'Mine bylder gør ondt!'
+        speech: 'Jeg har åbne sår kan du rense dem?'
     }
 ];
 
@@ -160,24 +160,8 @@ function handleIconClick(icon) {
 
             // Add this after gameDialog.style.opacity = '1';
             document.querySelector('.retry-button').addEventListener('click', function() {
-                // Reset game state logic here
-                currentPatient = 0; // Reset current patient to the first patient
-                results = []; // Clear results
-            
-                // Hide the final screen and show the initial state again
-                const gameDialog = document.querySelector('.game-dialog');
-                gameDialog.style.opacity = '0';
-                setTimeout(() => {
-                    gameDialog.style.display = 'none'; // Hide final screen
-                    document.querySelector('.game-initial').style.display = 'block'; // Show initial state
-            
-                    // Reset the initial state UI if needed
-                    const initialState = document.querySelector('.game-initial');
-                    initialState.style.opacity = '1'; // Ensure it's visible
-            
-                    // Call the function to show the first patient
-                    showNextPatient(); // Show the first patient
-                }, 500);
+                // Reload the page to reset the game
+                location.reload();
             });
         }, 1000);
     } else {
@@ -186,13 +170,12 @@ function handleIconClick(icon) {
     }
 }
 
-// click listeners ttil alle ikoner
+// click listeners til alle ikoner
 document.querySelectorAll('.icon-container .icon-image').forEach(icon => {
     icon.addEventListener('click', function() {
         handleIconClick(this);
     });
 });
-
 
 document.querySelectorAll('.icon-container > img.game-icon').forEach(icon => {
     const container = document.createElement('div');
