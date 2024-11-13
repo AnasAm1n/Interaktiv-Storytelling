@@ -5,7 +5,7 @@ const kr3 = document.getElementById("kr3");
 const kr4 = document.getElementById("kr4");
 const felix = document.querySelector('.felix img');
 
-// Define patients and their correct sequences
+// Definer patienter og deres korrekte sekvenser
 const patients = [
     {
         image: 'images/patient1.png',
@@ -30,7 +30,7 @@ let results = [];
 
 function playSound(soundId) {
     const sound = document.getElementById(soundId);
-    sound.currentTime = 0; // Reset sound to start
+    sound.currentTime = 0; // Reset lyd
     sound.play();
 }
 
@@ -61,7 +61,7 @@ document.querySelector('.start-button').addEventListener('click', function() {
     const initialState = document.querySelector('.game-initial');
     const dialogState = document.querySelector('.game-dialog');
     
-    // Fade out initial state
+    // Fade ud
     initialState.style.opacity = '0';
     
     setTimeout(() => {
@@ -69,10 +69,10 @@ document.querySelector('.start-button').addEventListener('click', function() {
         initialState.style.display = 'none';
         dialogState.style.display = 'block';
         
-        // Trigger fade in
+        // Fade in
         setTimeout(() => {
             dialogState.style.opacity = '1';
-            showNextPatient(); // Call to show the first patient
+            showNextPatient(); // Kald til at vise første patient
         }, 50);
     }, 500);
 });
@@ -81,19 +81,19 @@ function showNextPatient() {
     const patientImage = document.querySelector('.dialog-character-right');
     const speechBubble = document.querySelector('.patient-speech-bubble');
     
-    // Hide current patient and speech bubble
+    // Gem nuværende patient and tale bobbel
     patientImage.style.opacity = '0';
     patientImage.style.transform = 'translateX(50px)';
-    if (speechBubble) speechBubble.style.opacity = '0'; // Hide the speech bubble
+    if (speechBubble) speechBubble.style.opacity = '0'; // Gem tale bobbel
 
     setTimeout(() => {
-        // Update patient image
+        // Opdater patient billede
         patientImage.src = patients[currentPatient].image;
 
-        // Update speech bubble text
+        // Opdater tale bobbel
         speechBubble.textContent = patients[currentPatient].speech; // Set the speech text
 
-        // Show new patient and speech bubble
+        // Vise næste patient og tale bobbel
         setTimeout(() => {
             patientImage.style.opacity = '1';
             patientImage.style.transform = 'translateX(0)';
@@ -103,44 +103,49 @@ function showNextPatient() {
 }
 
 function handleIconClick(icon) {
-    if (icon.style.opacity === '0') return;
-    
+    if (icon.style.opacity === '0') return; // Ignore hvis den allerede er klikket
+
+    // Stopper alle ikoner i spam klik
+    document.querySelectorAll('.icon-container .icon-image').forEach(icon => {
+        icon.style.pointerEvents = 'none'; // Disable pointer events
+    });
+
     const iconType = icon.getAttribute('alt');
     const iconContainer = icon.parentElement;
-    
-    // Play sound
+
+    // Afspil lyd
     const soundId = `${iconType}-sound`;
     const sound = document.getElementById(soundId);
     if (sound) {
         sound.currentTime = 0;
         sound.play().catch(error => console.log("Audio playback failed:", error));
     }
-    
-    // Fade out the clicked icon
-    icon.style.opacity = '0';
-    iconContainer.classList.add('clicked');
-    
-    // Check if it's the correct choice for current patient
+
+    // Fade ud det klikke ikon
+    icon.style.opacity = '0'; // Opaciteten for fade out effekten til 0
+    iconContainer.classList.add('clicked'); // 
+
+    // Tjekker hvis det er det korrekte valg for nuværende patient
     const isCorrect = (iconType === patients[currentPatient].correctSequence[0]);
     results.push(isCorrect);
-    
-    // Move to next patient after a delay
+
+    // Gå videre til næste patient efter et delay
     currentPatient++;
-    
+
     // If we've treated all patients, show final screen
     if (currentPatient === patients.length) {
         setTimeout(() => {
             const gameDialog = document.querySelector('.game-dialog');
-            
-            // Calculate survivors
+
+            //  kalkulerer overlevende patienter
             const survivors = results.filter(result => result).length;
-            
-            // Create result boxes based on actual results
+
+            //  Laver resultat boks baseret på aktuelle resultater
             const resultBoxes = results.map(result => 
                 `<div class="result-box ${result ? 'checkmark' : 'skull'}"></div>`
             ).join('');
-            
-            // Create the final screen HTML
+
+            // Final screen (slutningen af spillet) 
             gameDialog.innerHTML = `
                 <div class="final-screen">
                     <div class="final-content">
@@ -155,19 +160,36 @@ function handleIconClick(icon) {
                     </div>
                 </div>
             `;
-            
+
             gameDialog.style.opacity = '1';
+
+            // Afspil sidste lyd (final screen)
+            const finalScreenSound = document.getElementById('final-screen-sound');
+            if (finalScreenSound) {
+                finalScreenSound.currentTime = 0; // Reset sound to start
+                finalScreenSound.play().catch(error => console.log("Audio playback failed:", error));
+            }
 
             // Add this after gameDialog.style.opacity = '1';
             document.querySelector('.retry-button').addEventListener('click', function() {
-                // Reload the page to reset the game
+                // Reloader siden til at genstarte spillet med nye muligheder
                 location.reload();
             });
         }, 1000);
     } else {
-        // Show next patient after icon fade animation
+        //  Vis næste patient efter ikonet animation har kørt
         setTimeout(showNextPatient, 500);
     }
+
+    // Genaktivere ikoner efter 2 sekunder (spam klikking debug)
+    setTimeout(() => {
+        document.querySelectorAll('.icon-container .icon-image').forEach(icon => {
+            // Only reset pointer events for icons that are still visible
+            if (icon.style.opacity !== '0') {
+                icon.style.pointerEvents = 'auto'; // Re-enable pointer events
+            }
+        });
+    }, 2000); // 2000 milliseconds = 2 sekunder
 }
 
 // click listeners til alle ikoner

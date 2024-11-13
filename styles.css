@@ -203,28 +203,42 @@ p {
     left: 43%;
     transform: translateX(-50%);
     z-index: 3;
-    background-color: #000000;
-    color: white;
+    background: linear-gradient(135deg, #FF6F61, #D50000); /* Gradient baggrund på knappen */
+    color: rgb(255, 255, 255);
     padding: 20px 50px;  
     border: none;
     border-radius: 35px;  
     font-size: 28px;  /* Større font str */
     cursor: pointer;
     transition: all 0.3s ease;  /* Smooth transition til hover effekter */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);  /* Skygge */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);  /* Skygge */
     text-transform: uppercase;  /* Store bogstaver */
     font-weight: 600;  /* Bold tekst */
     letter-spacing: 2px;  /* letter spacing */
 }
 
 .start-button:hover {
-    background-color: #333333;  /* Lidt lysere ved hover */
-    transform: translateX(-50%) scale(1.05);  /* skaler op når hover */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);  /* Større skygger på hover */
+    background: linear-gradient(135deg, #D50000, #FF6F61);  /* Omvendt gradient ved hover */
+    transform: translateX(-50%) scale(1.1);  /* Skaler en smule ved hover */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);  /* Skygge ved hover */
+    animation: pulse 0.6s infinite;  /* Puls effekt på knappen ved hover */
 }
 
 .start-button:active {
-    transform: translateX(-50%) scale(0.98);  /* Skaler ned når den bliver klikket */
+    transform: translateX(-50%) scale(0.95);  /* Skaler ned når den bliver klikket */
+}
+
+/* Keyframes for pulsing effect */
+@keyframes pulse {
+    0% {
+        transform: translateX(-50%) scale(1.1);
+    }
+    50% {
+        transform: translateX(-50%) scale(1.15); /* Pulse animation */
+    }
+    100% {
+        transform: translateX(-50%) scale(1.1);
+    }
 }
 
 .speech-bubble {
@@ -259,7 +273,7 @@ p {
     position: relative;
     width: 1440px;
     height: 900px;
-    background-color: #FF3B30; /* Match the red background */
+    background-color: #FF3B30; /* Match den røde baggrund */
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
 }
@@ -294,7 +308,7 @@ p {
     object-fit: contain;
     opacity: 0; /* Start hidden */
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    transform: translateX(50px); /* Start from right */
+    transform: translateX(50px); /* Starter fra højre */
 }
 
 .dialog-scene {
@@ -310,7 +324,7 @@ p {
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 40px; /* Adjusted gap between icons */
+    gap: 40px; /* Gap mellem ikonerne */
     padding: 0;
     z-index: 3;
 }
@@ -383,7 +397,7 @@ p {
     position: relative;
     width: 100%;
     height: 100%;
-    background: #FF3B30; /* Changed to match the page's red color */
+    background: #FF3B30; /* Rød til at matche sidens farve, for at fjerne black bars */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -394,7 +408,7 @@ p {
     width: 1200px;
     height: calc(100% - 120px);
     overflow: hidden;
-    background: #FF3B30; /* Changed to match the page's red color */
+    background: #FF3B30; 
     margin: 0 auto;
 }
 
@@ -458,16 +472,16 @@ p {
     background-color: #FFE4E4;
 }
 
-/* Add new styles for the final game screen */
+
 .final-game-screen {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: transparent; /* Ensure the background is transparent */
-    display: none; /* Initially hidden */
-    z-index: 4; /* Above other game elements */
+    background: transparent; /*  Sikre på at baggrunden er transparent */
+    display: none; 
+    z-index: 4; /* Over alle andre elementer */
 }
 
 .plague-doctor-final {
@@ -553,6 +567,10 @@ p {
 
 .retry-button:hover {
     background-color: #333333;
+}
+
+.icon-image {
+    transition: opacity 0.5s ease; /* Smooth transition for gennemsigtighed */
 }
 
 
